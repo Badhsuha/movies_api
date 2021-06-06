@@ -41,7 +41,7 @@ class MoveisView(APIView):
             data_to_update = {}
             movie = Movies.objects.get(id=request.data['id'])
             data_to_update['title'] = request.data.get('title', movie.title)
-            data_to_update['genres'] = request.data.get('genres', movie.genres)
+            data_to_update['genres'] = json.dumps(request.data.get('genres', movie.genres))
             movie.title = data_to_update['title']
             movie.genres = data_to_update['genres']
             movie.updateAt = datetime.datetime.utcnow()
@@ -55,7 +55,6 @@ class MoveisView(APIView):
         pdf = FPDF()
         pdf.add_page()
         pdf.set_font("Arial", size = 15)
-
 
         movies = Movies.objects.order_by('-updateAt')
         dt = [{'id':movie.id, "title": movie.title, 'genres':json.loads(movie.genres), 'createdAt':movie.createdAt, 'updatedAt': movie.updateAt}  for movie in movies]
@@ -74,6 +73,7 @@ class MoveisView(APIView):
             line += 1
             pdf.cell(200, 10, txt = "----------------------"  ,ln = line)
             line += 1
+
         response = HttpResponse(pdf.output(dest='s').encode('latin-1'), content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="{}"'.format('movies.pdf')
         return response
