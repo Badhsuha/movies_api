@@ -1,3 +1,8 @@
+### Run
+1. Clone the repo
+2. run `pip install -r reuirement.txt`
+2.run `python manage.py runserver`
+
 # URL's
 
 [http:localhost://localhost:PORT/movies/](http://localhost:port/movies)
