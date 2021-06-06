@@ -57,13 +57,13 @@
 1. #### get - request:
    movies/movie_name/
 
-    1. success-response
+    `1. success-response
        {
        "id":int
        "title":movie title
        "genres": [genre]
        }
-
+      `
 
 
 [http://localhost:PORT/search/<search>/](http://localhost:port/search<search>)
